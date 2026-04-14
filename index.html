@@ -67,7 +67,6 @@
             object-fit: contain;
         }
 
-        /* Desktop: 3-column images */
         .hero-columns-desktop {
             display: none;
         }
@@ -93,7 +92,6 @@
             opacity: 1;
         }
 
-        /* Mobile: single-image carousel */
         .hero-carousel-mobile {
             display: block;
         }
@@ -158,6 +156,12 @@
                 z-index: 40;
             }
             .mobile-overlay.open { display: block; }
+        }
+
+        .gallery-item img {
+            border: none;
+            outline: none;
+            display: block;
         }
     </style>
 </head>
@@ -233,7 +237,6 @@
         <div id="section-home" class="section-page active">
             <div class="relative h-[85vh] min-h-[600px] overflow-hidden">
 
-                <!-- Desktop: 3 Image Columns -->
                 <div class="hero-columns-desktop absolute inset-0 grid grid-cols-3">
                     <div class="relative overflow-hidden">
                         <div class="hero-column-image active">
@@ -252,7 +255,6 @@
                     </div>
                 </div>
 
-                <!-- Mobile: Single Image Carousel -->
                 <div class="hero-carousel-mobile absolute inset-0">
                     <div class="hero-mobile-image active">
                         <img src="https://i.ibb.co/BVk6yB70/71efe9ac-4693-4805-9755-1b92dad0ec65.jpg" alt="MiGroup Construction">
@@ -264,7 +266,6 @@
                         <img src="https://i.ibb.co/WNSzFHyJ/d6878b81-570d-4918-9ccf-d9d001c884f9.jpg" alt="MiGroup Construction">
                     </div>
 
-                    <!-- Carousel Indicators (mobile only) -->
                     <div class="carousel-indicators">
                         <div class="carousel-indicator active" data-mobile-slide="0"></div>
                         <div class="carousel-indicator" data-mobile-slide="1"></div>
@@ -272,10 +273,8 @@
                     </div>
                 </div>
 
-                <!-- Overlay Gradient -->
                 <div class="absolute inset-0" style="background: linear-gradient(to bottom, rgba(27,58,92,0.5) 0%, transparent 50%, rgba(27,58,92,0.8) 100%)"></div>
 
-                <!-- Content -->
                 <div class="relative h-full flex flex-col justify-end p-8 pb-20 md:p-16 md:pb-16 max-w-4xl">
                     <p class="text-brand-orange text-sm font-semibold uppercase tracking-widest mb-4">-------</p>
                     <h1 class="text-4xl md:text-7xl font-bold text-white leading-[1.1] tracking-tight mb-6">-------</h1>
@@ -393,28 +392,43 @@
         <div id="section-photos" class="section-page">
             <div class="max-w-6xl mx-auto px-6 py-16 md:py-24">
                 <p class="text-brand-orange text-xs font-semibold uppercase tracking-widest mb-4">Gallery</p>
-                <h2 class="text-4xl md:text-5xl font-medium tracking-tight mb-4">Project Photos</h2>
-                <p class="text-lg text-stone-500 font-light max-w-2xl mb-10">-------</p>
-                <div class="flex flex-wrap gap-2 mb-8">
-                    <button class="photo-filter active px-4 py-2 rounded-full text-sm font-medium bg-brand-blue text-white transition" data-filter="all">All</button>
-                    <button class="photo-filter px-4 py-2 rounded-full text-sm font-medium bg-white text-stone-600 border border-stone-200 hover:bg-stone-100 transition" data-filter="residential">-------</button>
-                    <button class="photo-filter px-4 py-2 rounded-full text-sm font-medium bg-white text-stone-600 border border-stone-200 hover:bg-stone-100 transition" data-filter="commercial">-------</button>
-                    <button class="photo-filter px-4 py-2 rounded-full text-sm font-medium bg-white text-stone-600 border border-stone-200 hover:bg-stone-100 transition" data-filter="renovation">-------</button>
-                    <button class="photo-filter px-4 py-2 rounded-full text-sm font-medium bg-white text-stone-600 border border-stone-200 hover:bg-stone-100 transition" data-filter="detail">-------</button>
-                </div>
-                <div id="photoGrid" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-                    <div class="gallery-item rounded-xl overflow-hidden cursor-pointer" data-category="residential"><div class="aspect-square overflow-hidden"><div class="missing-photo" style="aspect-ratio:1/1"><svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="18" x="3" y="3" rx="2" ry="2"/><circle cx="9" cy="9" r="2"/><path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21"/></svg><span>No Photo</span></div></div></div>
-                    <div class="gallery-item rounded-xl overflow-hidden cursor-pointer" data-category="commercial"><div class="aspect-square overflow-hidden"><div class="missing-photo" style="aspect-ratio:1/1"><svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="18" x="3" y="3" rx="2" ry="2"/><circle cx="9" cy="9" r="2"/><path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21"/></svg><span>No Photo</span></div></div></div>
-                    <div class="gallery-item rounded-xl overflow-hidden cursor-pointer" data-category="renovation"><div class="aspect-square overflow-hidden"><div class="missing-photo" style="aspect-ratio:1/1"><svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="18" x="3" y="3" rx="2" ry="2"/><circle cx="9" cy="9" r="2"/><path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21"/></svg><span>No Photo</span></div></div></div>
-                    <div class="gallery-item rounded-xl overflow-hidden cursor-pointer" data-category="detail"><div class="aspect-square overflow-hidden"><div class="missing-photo" style="aspect-ratio:1/1"><svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="18" x="3" y="3" rx="2" ry="2"/><circle cx="9" cy="9" r="2"/><path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21"/></svg><span>No Photo</span></div></div></div>
-                    <div class="gallery-item rounded-xl overflow-hidden cursor-pointer" data-category="residential"><div class="aspect-square overflow-hidden"><div class="missing-photo" style="aspect-ratio:1/1"><svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="18" x="3" y="3" rx="2" ry="2"/><circle cx="9" cy="9" r="2"/><path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21"/></svg><span>No Photo</span></div></div></div>
-                    <div class="gallery-item rounded-xl overflow-hidden cursor-pointer" data-category="detail"><div class="aspect-square overflow-hidden"><div class="missing-photo" style="aspect-ratio:1/1"><svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="18" x="3" y="3" rx="2" ry="2"/><circle cx="9" cy="9" r="2"/><path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21"/></svg><span>No Photo</span></div></div></div>
-                    <div class="gallery-item rounded-xl overflow-hidden cursor-pointer" data-category="commercial"><div class="aspect-square overflow-hidden"><div class="missing-photo" style="aspect-ratio:1/1"><svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="18" x="3" y="3" rx="2" ry="2"/><circle cx="9" cy="9" r="2"/><path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21"/></svg><span>No Photo</span></div></div></div>
-                    <div class="gallery-item rounded-xl overflow-hidden cursor-pointer" data-category="renovation"><div class="aspect-square overflow-hidden"><div class="missing-photo" style="aspect-ratio:1/1"><svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="18" x="3" y="3" rx="2" ry="2"/><circle cx="9" cy="9" r="2"/><path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21"/></svg><span>No Photo</span></div></div></div>
-                    <div class="gallery-item rounded-xl overflow-hidden cursor-pointer" data-category="residential"><div class="aspect-square overflow-hidden"><div class="missing-photo" style="aspect-ratio:1/1"><svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="18" x="3" y="3" rx="2" ry="2"/><circle cx="9" cy="9" r="2"/><path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21"/></svg><span>No Photo</span></div></div></div>
-                    <div class="gallery-item rounded-xl overflow-hidden cursor-pointer" data-category="detail"><div class="aspect-square overflow-hidden"><div class="missing-photo" style="aspect-ratio:1/1"><svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="18" x="3" y="3" rx="2" ry="2"/><circle cx="9" cy="9" r="2"/><path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21"/></svg><span>No Photo</span></div></div></div>
-                    <div class="gallery-item rounded-xl overflow-hidden cursor-pointer" data-category="commercial"><div class="aspect-square overflow-hidden"><div class="missing-photo" style="aspect-ratio:1/1"><svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="18" x="3" y="3" rx="2" ry="2"/><circle cx="9" cy="9" r="2"/><path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21"/></svg><span>No Photo</span></div></div></div>
-                    <div class="gallery-item rounded-xl overflow-hidden cursor-pointer" data-category="renovation"><div class="aspect-square overflow-hidden"><div class="missing-photo" style="aspect-ratio:1/1"><svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="18" x="3" y="3" rx="2" ry="2"/><circle cx="9" cy="9" r="2"/><path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21"/></svg><span>No Photo</span></div></div></div>
+                <h2 class="text-4xl md:text-5xl font-medium tracking-tight mb-10">Project Photos</h2>
+                <div id="photoGrid" class="grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-6">
+                    <div class="gallery-item rounded-xl overflow-hidden">
+                        <div class="aspect-square overflow-hidden">
+                            <img src="https://i.ibb.co/5XbbqhTJ/8556ee30-3fd2-44b1-a994-c61f5f39937a.jpg" alt="Project Photo" class="w-full h-full object-cover transition-transform duration-500">
+                        </div>
+                    </div>
+                    <div class="gallery-item rounded-xl overflow-hidden">
+                        <div class="aspect-square overflow-hidden">
+                            <img src="https://i.ibb.co/ymLVBQ5R/8291006f-08e9-4cda-8a58-372a6d3f379a.jpg" alt="Project Photo" class="w-full h-full object-cover transition-transform duration-500">
+                        </div>
+                    </div>
+                    <div class="gallery-item rounded-xl overflow-hidden">
+                        <div class="aspect-square overflow-hidden">
+                            <img src="https://i.ibb.co/LXGwJyZy/ca7e76d3-1657-4ab9-8301-fcd11c826b4a.jpg" alt="Project Photo" class="w-full h-full object-cover transition-transform duration-500">
+                        </div>
+                    </div>
+                    <div class="gallery-item rounded-xl overflow-hidden">
+                        <div class="aspect-square overflow-hidden">
+                            <img src="https://i.ibb.co/DHJZDDMG/3c7da2fd-49da-4a62-b4ce-cb0dcd5a4313.jpg" alt="Project Photo" class="w-full h-full object-cover transition-transform duration-500">
+                        </div>
+                    </div>
+                    <div class="gallery-item rounded-xl overflow-hidden">
+                        <div class="aspect-square overflow-hidden">
+                            <img src="https://i.ibb.co/93TS74f2/5ae6547c-32c7-4c34-a9df-461997436e3a.jpg" alt="Project Photo" class="w-full h-full object-cover transition-transform duration-500">
+                        </div>
+                    </div>
+                    <div class="gallery-item rounded-xl overflow-hidden">
+                        <div class="aspect-square overflow-hidden">
+                            <img src="https://i.ibb.co/zVvrSNB4/0344b02f-c99e-41b6-8e9c-633d42be2960.jpg" alt="Project Photo" class="w-full h-full object-cover transition-transform duration-500">
+                        </div>
+                    </div>
+                    <div class="gallery-item rounded-xl overflow-hidden">
+                        <div class="aspect-square overflow-hidden">
+                            <img src="https://i.ibb.co/8DhdkXbq/39043915-0e13-4b84-a419-2cf03a3e8b6e.jpg" alt="Project Photo" class="w-full h-full object-cover transition-transform duration-500">
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -541,7 +555,6 @@
             });
         });
 
-        // Only run carousel on mobile
         function handleCarouselVisibility() {
             if (window.innerWidth < 768) {
                 startMobileCarousel();
@@ -584,48 +597,6 @@
             overlay.classList.remove('open');
         }
         overlay.addEventListener('click', closeMobileMenu);
-
-        // ========== PHOTO FILTERS ==========
-        document.querySelectorAll('.photo-filter').forEach(btn => {
-            btn.addEventListener('click', () => {
-                document.querySelectorAll('.photo-filter').forEach(b => {
-                    b.classList.remove('bg-brand-blue', 'text-white');
-                    b.classList.add('bg-white', 'text-stone-600', 'border', 'border-stone-200');
-                });
-                btn.classList.remove('bg-white', 'text-stone-600', 'border', 'border-stone-200');
-                btn.classList.add('bg-brand-blue', 'text-white');
-
-                const filter = btn.dataset.filter;
-                document.querySelectorAll('.gallery-item').forEach(item => {
-                    if (filter === 'all' || item.dataset.category === filter) {
-                        item.style.display = '';
-                    } else {
-                        item.style.display = 'none';
-                    }
-                });
-            });
-        });
-
-        /*
-        ========================================================
-        FUTURE: Per-column image alternation (desktop)
-        ========================================================
-        When you add more images to each column, add more
-        .hero-column-image divs inside each column div, then
-        uncomment this code:
-
-        const columns = document.querySelectorAll('.hero-columns-desktop > div');
-        columns.forEach(col => {
-            const images = col.querySelectorAll('.hero-column-image');
-            let idx = 0;
-            setInterval(() => {
-                images.forEach(img => img.classList.remove('active'));
-                idx = (idx + 1) % images.length;
-                images[idx].classList.add('active');
-            }, 5000);
-        });
-        ========================================================
-        */
     </script>
 </body>
 </html>
