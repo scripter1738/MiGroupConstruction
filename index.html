@@ -58,9 +58,6 @@
         .missing-photo svg { margin-bottom: 8px; opacity: 0.5; }
         .missing-photo span { font-size: 12px; font-weight: 500; }
 
-        /* ============================================
-           LOGO SIZE — Change this value to resize logo
-           ============================================ */
         :root {
             --logo-height: 140px;
         }
@@ -98,7 +95,6 @@
 
     <!-- Left Sidebar -->
     <aside id="sidebar" class="sidebar fixed top-0 left-0 h-full w-64 bg-brand-blue text-white flex flex-col md:translate-x-0">
-        <!-- Logo Area — white background -->
         <div class="p-5 bg-white border-b border-white/10 flex items-center justify-center">
             <img src="migrouplogo.png" alt="MiGroupConstruction" class="logo-img">
         </div>
@@ -144,7 +140,6 @@
             <div class="space-y-2 text-xs text-white/50">
                 <div class="flex items-center gap-2">
                     <i data-lucide="phone" class="w-3.5 h-3.5"></i>
-                    <!-- UPDATED PHONE NUMBER WITH CLICKABLE LINK -->
                     <a href="tel:07584709091" class="hover:text-white transition-colors">07584709091</a>
                 </div>
                 <div class="flex items-center gap-2">
@@ -162,10 +157,7 @@
         <div id="section-home" class="section-page active">
             <div class="relative h-[85vh] min-h-[600px] overflow-hidden">
                 <div class="absolute inset-0">
-                    <div class="missing-photo" style="height:100%">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="18" x="3" y="3" rx="2" ry="2"/><circle cx="9" cy="9" r="2"/><path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21"/></svg>
-                        <span>No Photo</span>
-                    </div>
+                    <img src="https://i.ibb.co/XkscYJfW/New-Project-10-1-1.jpg" alt="MiGroup Construction" class="w-full h-full object-cover" style="pointer-events:none;">
                 </div>
                 <div class="absolute inset-0" style="background: linear-gradient(to bottom, rgba(27,58,92,0.5) 0%, transparent 50%, rgba(27,58,92,0.8) 100%)"></div>
                 <div class="relative h-full flex flex-col justify-end p-8 pb-20 md:p-16 md:pb-16 max-w-4xl">
@@ -360,7 +352,6 @@
                 <h2 class="text-4xl md:text-5xl font-medium tracking-tight mb-4">Contact Us</h2>
                 <p class="text-lg text-stone-500 font-light max-w-2xl mb-12">-------</p>
                 <div class="space-y-6">
-                    <!-- UPDATED PHONE NUMBER WITH CLICKABLE LINK -->
                     <div class="bg-white rounded-2xl p-6 border border-stone-200">
                         <div class="flex items-start gap-4">
                             <div class="w-10 h-10 rounded-xl bg-brand-blue/10 flex items-center justify-center flex-shrink-0"><i data-lucide="phone" class="w-5 h-5 text-brand-blue"></i></div>
