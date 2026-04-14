@@ -67,7 +67,15 @@
             object-fit: contain;
         }
 
-        /* Hero Column Images */
+        /* Desktop: 3-column images */
+        .hero-columns-desktop {
+            display: none;
+        }
+        @media (min-width: 768px) {
+            .hero-columns-desktop {
+                display: grid;
+            }
+        }
         .hero-column-img {
             width: 100%;
             height: 100%;
@@ -75,8 +83,6 @@
             display: block;
             pointer-events: none;
         }
-
-        /* Future: per-column alternation styles */
         .hero-column-image {
             position: absolute;
             inset: 0;
@@ -85,6 +91,56 @@
         }
         .hero-column-image.active {
             opacity: 1;
+        }
+
+        /* Mobile: single-image carousel */
+        .hero-carousel-mobile {
+            display: block;
+        }
+        @media (min-width: 768px) {
+            .hero-carousel-mobile {
+                display: none;
+            }
+        }
+        .hero-mobile-image {
+            position: absolute;
+            inset: 0;
+            opacity: 0;
+            transition: opacity 1.5s ease-in-out;
+        }
+        .hero-mobile-image.active {
+            opacity: 1;
+        }
+        .hero-mobile-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            pointer-events: none;
+        }
+        .carousel-indicators {
+            position: absolute;
+            bottom: 5rem;
+            left: 1rem;
+            display: flex;
+            gap: 0.5rem;
+            z-index: 10;
+        }
+        @media (min-width: 768px) {
+            .carousel-indicators {
+                display: none;
+            }
+        }
+        .carousel-indicator {
+            width: 40px;
+            height: 4px;
+            background: rgba(255,255,255,0.3);
+            border-radius: 2px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .carousel-indicator.active {
+            background: #F07C2F;
+            width: 60px;
         }
 
         @media (max-width: 767px) {
@@ -177,33 +233,43 @@
         <div id="section-home" class="section-page active">
             <div class="relative h-[85vh] min-h-[600px] overflow-hidden">
 
-                <!-- 3 Image Columns -->
-                <div class="absolute inset-0 grid grid-cols-3">
-
-                    <!-- Column 1 -->
+                <!-- Desktop: 3 Image Columns -->
+                <div class="hero-columns-desktop absolute inset-0 grid grid-cols-3">
                     <div class="relative overflow-hidden">
                         <div class="hero-column-image active">
                             <img src="https://i.ibb.co/BVk6yB70/71efe9ac-4693-4805-9755-1b92dad0ec65.jpg" alt="MiGroup Construction" class="hero-column-img">
                         </div>
-                        <!-- Add more images to this column in the future as additional .hero-column-image divs -->
                     </div>
-
-                    <!-- Column 2 -->
                     <div class="relative overflow-hidden">
                         <div class="hero-column-image active">
                             <img src="https://i.ibb.co/HTxXNw4P/ab5631e2-41ba-488f-b494-bd169a860ec0.jpg" alt="MiGroup Construction" class="hero-column-img">
                         </div>
-                        <!-- Add more images to this column in the future as additional .hero-column-image divs -->
                     </div>
-
-                    <!-- Column 3 -->
                     <div class="relative overflow-hidden">
                         <div class="hero-column-image active">
                             <img src="https://i.ibb.co/WNSzFHyJ/d6878b81-570d-4918-9ccf-d9d001c884f9.jpg" alt="MiGroup Construction" class="hero-column-img">
                         </div>
-                        <!-- Add more images to this column in the future as additional .hero-column-image divs -->
+                    </div>
+                </div>
+
+                <!-- Mobile: Single Image Carousel -->
+                <div class="hero-carousel-mobile absolute inset-0">
+                    <div class="hero-mobile-image active">
+                        <img src="https://i.ibb.co/BVk6yB70/71efe9ac-4693-4805-9755-1b92dad0ec65.jpg" alt="MiGroup Construction">
+                    </div>
+                    <div class="hero-mobile-image">
+                        <img src="https://i.ibb.co/HTxXNw4P/ab5631e2-41ba-488f-b494-bd169a860ec0.jpg" alt="MiGroup Construction">
+                    </div>
+                    <div class="hero-mobile-image">
+                        <img src="https://i.ibb.co/WNSzFHyJ/d6878b81-570d-4918-9ccf-d9d001c884f9.jpg" alt="MiGroup Construction">
                     </div>
 
+                    <!-- Carousel Indicators (mobile only) -->
+                    <div class="carousel-indicators">
+                        <div class="carousel-indicator active" data-mobile-slide="0"></div>
+                        <div class="carousel-indicator" data-mobile-slide="1"></div>
+                        <div class="carousel-indicator" data-mobile-slide="2"></div>
+                    </div>
                 </div>
 
                 <!-- Overlay Gradient -->
@@ -440,6 +506,52 @@
     <script>
         lucide.createIcons();
 
+        // ========== MOBILE CAROUSEL (only runs on mobile) ==========
+        let mobileSlide = 0;
+        const mobileSlides = document.querySelectorAll('.hero-mobile-image');
+        const mobileIndicators = document.querySelectorAll('.carousel-indicator');
+        let mobileCarouselInterval;
+
+        function showMobileSlide(index) {
+            mobileSlides.forEach(s => s.classList.remove('active'));
+            mobileIndicators.forEach(i => i.classList.remove('active'));
+            mobileSlides[index].classList.add('active');
+            mobileIndicators[index].classList.add('active');
+        }
+
+        function nextMobileSlide() {
+            mobileSlide = (mobileSlide + 1) % mobileSlides.length;
+            showMobileSlide(mobileSlide);
+        }
+
+        function startMobileCarousel() {
+            mobileCarouselInterval = setInterval(nextMobileSlide, 5000);
+        }
+
+        function stopMobileCarousel() {
+            clearInterval(mobileCarouselInterval);
+        }
+
+        mobileIndicators.forEach((ind, i) => {
+            ind.addEventListener('click', () => {
+                stopMobileCarousel();
+                mobileSlide = i;
+                showMobileSlide(i);
+                startMobileCarousel();
+            });
+        });
+
+        // Only run carousel on mobile
+        function handleCarouselVisibility() {
+            if (window.innerWidth < 768) {
+                startMobileCarousel();
+            } else {
+                stopMobileCarousel();
+            }
+        }
+        handleCarouselVisibility();
+        window.addEventListener('resize', handleCarouselVisibility);
+
         // ========== SECTION NAVIGATION ==========
         function showSection(sectionId) {
             document.querySelectorAll('.section-page').forEach(s => s.classList.remove('active'));
@@ -448,6 +560,13 @@
             document.querySelector(`.nav-link[data-section="${sectionId}"]`).classList.add('active');
             window.scrollTo({ top: 0, behavior: 'smooth' });
             closeMobileMenu();
+
+            if (sectionId === 'home' && window.innerWidth < 768) {
+                stopMobileCarousel();
+                startMobileCarousel();
+            } else {
+                stopMobileCarousel();
+            }
         }
 
         // ========== MOBILE MENU ==========
@@ -489,13 +608,13 @@
 
         /*
         ========================================================
-        FUTURE: Per-column image alternation
+        FUTURE: Per-column image alternation (desktop)
         ========================================================
-        When you add more images to each column, the CSS for
-        .hero-column-image is already set up with opacity
-        transitions. You can add JS like this:
+        When you add more images to each column, add more
+        .hero-column-image divs inside each column div, then
+        uncomment this code:
 
-        const columns = document.querySelectorAll('.hero-column');
+        const columns = document.querySelectorAll('.hero-columns-desktop > div');
         columns.forEach(col => {
             const images = col.querySelectorAll('.hero-column-image');
             let idx = 0;
