@@ -67,6 +67,44 @@
             object-fit: contain;
         }
 
+        /* Hero Image Carousel Styles */
+        .hero-image {
+            position: absolute;
+            inset: 0;
+            opacity: 0;
+            transition: opacity 1.5s ease-in-out;
+        }
+        .hero-image.active {
+            opacity: 1;
+        }
+        .hero-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* Carousel Indicators */
+        .carousel-indicators {
+            position: absolute;
+            bottom: 8rem;
+            left: 2rem;
+            display: flex;
+            gap: 0.5rem;
+            z-index: 10;
+        }
+        .carousel-indicator {
+            width: 40px;
+            height: 4px;
+            background: rgba(255,255,255,0.3);
+            border-radius: 2px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .carousel-indicator.active {
+            background: #F07C2F;
+            width: 60px;
+        }
+
         @media (max-width: 767px) {
             .sidebar {
                 transform: translateX(-100%);
@@ -82,6 +120,10 @@
                 z-index: 40;
             }
             .mobile-overlay.open { display: block; }
+            .carousel-indicators {
+                bottom: 5rem;
+                left: 1rem;
+            }
         }
     </style>
 </head>
@@ -156,10 +198,24 @@
         <!-- ========== HOME ========== -->
         <div id="section-home" class="section-page active">
             <div class="relative h-[85vh] min-h-[600px] overflow-hidden">
-                <div class="absolute inset-0">
-                    <img src="https://i.ibb.co/XkscYJfW/New-Project-10-1-1.jpg" alt="MiGroup Construction" class="w-full h-full object-cover" style="pointer-events:none;">
+                <!-- Image Carousel -->
+                <div class="hero-image active">
+                    <img src="https://i.ibb.co/XkscYJfW/New-Project-10-1-1.jpg" alt="MiGroup Construction" style="pointer-events:none;">
                 </div>
+                <div class="hero-image">
+                    <img src="https://i.ibb.co/Vp0BCqc0/upscaled-image.jpg" alt="MiGroup Construction" style="pointer-events:none;">
+                </div>
+                
+                <!-- Overlay Gradient -->
                 <div class="absolute inset-0" style="background: linear-gradient(to bottom, rgba(27,58,92,0.5) 0%, transparent 50%, rgba(27,58,92,0.8) 100%)"></div>
+                
+                <!-- Carousel Indicators -->
+                <div class="carousel-indicators">
+                    <div class="carousel-indicator active" data-slide="0"></div>
+                    <div class="carousel-indicator" data-slide="1"></div>
+                </div>
+                
+                <!-- Content -->
                 <div class="relative h-full flex flex-col justify-end p-8 pb-20 md:p-16 md:pb-16 max-w-4xl">
                     <p class="text-brand-orange text-sm font-semibold uppercase tracking-widest mb-4">-------</p>
                     <h1 class="text-4xl md:text-7xl font-bold text-white leading-[1.1] tracking-tight mb-6">-------</h1>
@@ -400,6 +456,47 @@
     <script>
         lucide.createIcons();
 
+        // ========== HERO IMAGE CAROUSEL ==========
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.hero-image');
+        const indicators = document.querySelectorAll('.carousel-indicator');
+        let carouselInterval;
+
+        function showSlide(index) {
+            slides.forEach(slide => slide.classList.remove('active'));
+            indicators.forEach(ind => ind.classList.remove('active'));
+            
+            slides[index].classList.add('active');
+            indicators[index].classList.add('active');
+        }
+
+        function nextSlide() {
+            currentSlide = (currentSlide + 1) % slides.length;
+            showSlide(currentSlide);
+        }
+
+        function startCarousel() {
+            carouselInterval = setInterval(nextSlide, 5000); // Change image every 5 seconds
+        }
+
+        function stopCarousel() {
+            clearInterval(carouselInterval);
+        }
+
+        // Manual indicator control
+        indicators.forEach((indicator, index) => {
+            indicator.addEventListener('click', () => {
+                stopCarousel();
+                currentSlide = index;
+                showSlide(currentSlide);
+                startCarousel();
+            });
+        });
+
+        // Start carousel on page load
+        startCarousel();
+
+        // ========== SECTION NAVIGATION ==========
         function showSection(sectionId) {
             document.querySelectorAll('.section-page').forEach(s => s.classList.remove('active'));
             document.getElementById('section-' + sectionId).classList.add('active');
@@ -407,8 +504,17 @@
             document.querySelector(`.nav-link[data-section="${sectionId}"]`).classList.add('active');
             window.scrollTo({ top: 0, behavior: 'smooth' });
             closeMobileMenu();
+
+            // Restart carousel when returning to home
+            if (sectionId === 'home') {
+                stopCarousel();
+                startCarousel();
+            } else {
+                stopCarousel();
+            }
         }
 
+        // ========== MOBILE MENU ==========
         const sidebar = document.getElementById('sidebar');
         const overlay = document.getElementById('mobileOverlay');
         const menuBtn = document.getElementById('mobileMenuBtn');
@@ -424,6 +530,7 @@
         }
         overlay.addEventListener('click', closeMobileMenu);
 
+        // ========== PHOTO FILTERS ==========
         document.querySelectorAll('.photo-filter').forEach(btn => {
             btn.addEventListener('click', () => {
                 document.querySelectorAll('.photo-filter').forEach(b => {
