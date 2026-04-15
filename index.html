@@ -39,8 +39,6 @@
         .nav-link { transition: all 150ms cubic-bezier(0.4, 0, 0.2, 1); }
         .nav-link:hover { background: rgba(255,255,255,0.1); }
         .nav-link.active { background: rgba(255,255,255,0.12); border-left-color: #F07C2F; }
-        .project-card:hover .project-overlay { opacity: 1; }
-        .project-card:hover img { transform: scale(1.05); }
         .video-card:hover .video-overlay { opacity: 1; }
         .video-card:hover img { transform: scale(1.05); }
         .service-card:hover { border-color: #1B3A5C; }
@@ -224,6 +222,30 @@
         }
         .lightbox-prev { left: 1rem; }
         .lightbox-next { right: 1rem; }
+
+        /* Home photo fade swap */
+        .home-photo-slot {
+            position: relative;
+            border-radius: 1rem;
+            overflow: hidden;
+        }
+        .home-photo-slot img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            position: absolute;
+            inset: 0;
+            opacity: 0;
+            transition: opacity 1.2s ease-in-out;
+        }
+        .home-photo-slot img.visible {
+            opacity: 1;
+        }
+        .home-photo-slot .aspect-placeholder {
+            width: 100%;
+            display: block;
+        }
     </style>
 </head>
 <body class="font-sans bg-[#F2F2F2] text-stone-900">
@@ -275,14 +297,6 @@
                 <button onclick="showSection('videos')" data-section="videos" class="nav-link w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium border-l-2 border-transparent">
                     <i data-lucide="video" class="w-4 h-4 text-white/50"></i>
                     Videos
-                </button>
-                <button onclick="showSection('projects')" data-section="projects" class="nav-link w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium border-l-2 border-transparent">
-                    <i data-lucide="building-2" class="w-4 h-4 text-white/50"></i>
-                    Projects
-                </button>
-                <button onclick="showSection('testimonials')" data-section="testimonials" class="nav-link w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium border-l-2 border-transparent">
-                    <i data-lucide="message-square" class="w-4 h-4 text-white/50"></i>
-                    Testimonials
                 </button>
                 <button onclick="showSection('contact')" data-section="contact" class="nav-link w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium border-l-2 border-transparent">
                     <i data-lucide="mail" class="w-4 h-4 text-white/50"></i>
@@ -352,11 +366,11 @@
 
                 <div class="relative h-full flex flex-col justify-end p-8 pb-20 md:p-16 md:pb-16 max-w-4xl">
                     <div class="flex flex-wrap gap-4">
-                        <button onclick="showSection('projects')" class="bg-brand-orange text-white px-8 py-3 rounded-full font-medium text-sm hover:bg-brand-orange-dark transition">
+                        <button onclick="showSection('photos')" class="bg-brand-orange text-white px-8 py-3 rounded-full font-medium text-sm hover:bg-brand-orange-dark transition">
                             View Our Work
                         </button>
                         <button onclick="showSection('contact')" class="bg-white/10 backdrop-blur-sm border border-white/20 text-white px-8 py-3 rounded-full font-medium text-sm hover:bg-white/20 transition">
-                            Get a Quote
+                            Contact Us
                         </button>
                     </div>
                 </div>
@@ -365,32 +379,29 @@
             <div class="max-w-6xl mx-auto px-4 md:px-6 py-16 md:py-20">
                 <div class="flex items-end justify-between mb-10">
                     <div>
-                        <p class="text-brand-orange text-xs font-semibold uppercase tracking-widest mb-2">Featured Work</p>
-                        <h2 class="text-2xl md:text-4xl font-medium tracking-tight">Recent Projects</h2>
+                        <p class="text-brand-orange text-xs font-semibold uppercase tracking-widest mb-2">Gallery</p>
+                        <h2 class="text-2xl md:text-4xl font-medium tracking-tight">Photos</h2>
                     </div>
-                    <button onclick="showSection('projects')" class="hidden md:flex items-center gap-2 text-sm font-medium text-stone-500 hover:text-brand-blue transition">
+                    <button onclick="showSection('photos')" class="hidden md:flex items-center gap-2 text-sm font-medium text-stone-500 hover:text-brand-blue transition">
                         View All <i data-lucide="arrow-right" class="w-4 h-4"></i>
                     </button>
                 </div>
                 <div class="grid md:grid-cols-3 gap-4 md:gap-6">
-                    <div class="project-card group cursor-pointer rounded-2xl overflow-hidden relative" onclick="showSection('projects')">
-                        <div class="aspect-[4/3] overflow-hidden"><div class="missing-photo" style="aspect-ratio:4/3"><svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="18" x="3" y="3" rx="2" ry="2"/><circle cx="9" cy="9" r="2"/><path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21"/></svg><span>No Photo</span></div></div>
-                        <div class="project-overlay absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent opacity-0 transition duration-300 flex items-end p-6">
-                            <div class="text-white"><p class="text-xs uppercase tracking-widest text-brand-orange mb-1">-------</p><p class="font-semibold">-------</p></div>
-                        </div>
+                    <div class="home-photo-slot" data-slot="0">
+                        <div class="aspect-placeholder" style="aspect-ratio:4/3"></div>
                     </div>
-                    <div class="project-card group cursor-pointer rounded-2xl overflow-hidden relative" onclick="showSection('projects')">
-                        <div class="aspect-[4/3] overflow-hidden"><div class="missing-photo" style="aspect-ratio:4/3"><svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="18" x="3" y="3" rx="2" ry="2"/><circle cx="9" cy="9" r="2"/><path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21"/></svg><span>No Photo</span></div></div>
-                        <div class="project-overlay absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent opacity-0 transition duration-300 flex items-end p-6">
-                            <div class="text-white"><p class="text-xs uppercase tracking-widest text-brand-orange mb-1">-------</p><p class="font-semibold">-------</p></div>
-                        </div>
+                    <div class="home-photo-slot" data-slot="1">
+                        <div class="aspect-placeholder" style="aspect-ratio:4/3"></div>
                     </div>
-                    <div class="project-card group cursor-pointer rounded-2xl overflow-hidden relative" onclick="showSection('projects')">
-                        <div class="aspect-[4/3] overflow-hidden"><div class="missing-photo" style="aspect-ratio:4/3"><svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="18" x="3" y="3" rx="2" ry="2"/><circle cx="9" cy="9" r="2"/><path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21"/></svg><span>No Photo</span></div></div>
-                        <div class="project-overlay absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent opacity-0 transition duration-300 flex items-end p-6">
-                            <div class="text-white"><p class="text-xs uppercase tracking-widest text-brand-orange mb-1">-------</p><p class="font-semibold">-------</p></div>
-                        </div>
+                    <div class="home-photo-slot" data-slot="2">
+                        <div class="aspect-placeholder" style="aspect-ratio:4/3"></div>
                     </div>
+                </div>
+
+                <div class="mt-8 text-center md:hidden">
+                    <button onclick="showSection('photos')" class="inline-flex items-center gap-2 text-sm font-medium text-stone-500 hover:text-brand-blue transition">
+                        View All Photos <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                    </button>
                 </div>
             </div>
         </div>
@@ -445,7 +456,6 @@
                 <p class="text-brand-orange text-xs font-semibold uppercase tracking-widest mb-4">Gallery</p>
                 <h2 class="text-4xl md:text-5xl font-medium tracking-tight mb-10">Project Photos</h2>
                 <div id="photoGrid" class="grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-6">
-                    <!-- Original photos -->
                     <div class="gallery-item rounded-xl overflow-hidden cursor-pointer" onclick="openLightbox(0)">
                         <div class="aspect-square overflow-hidden">
                             <img src="https://i.ibb.co/5XbbqhTJ/8556ee30-3fd2-44b1-a994-c61f5f39937a.jpg" alt="Project Photo" class="w-full h-full object-cover transition-transform duration-500">
@@ -481,7 +491,6 @@
                             <img src="https://i.ibb.co/8DhdkXbq/39043915-0e13-4b84-a419-2cf03a3e8b6e.jpg" alt="Project Photo" class="w-full h-full object-cover transition-transform duration-500">
                         </div>
                     </div>
-                    <!-- New photos -->
                     <div class="gallery-item rounded-xl overflow-hidden cursor-pointer" onclick="openLightbox(7)">
                         <div class="aspect-square overflow-hidden">
                             <img src="https://i.ibb.co/mCh8KvHw/0a143052-b753-4f59-8dd9-22aee83914ec.jpg" alt="Project Photo" class="w-full h-full object-cover transition-transform duration-500">
@@ -616,33 +625,6 @@
             </div>
         </div>
 
-        <!-- ========== PROJECTS ========== -->
-        <div id="section-projects" class="section-page">
-            <div class="max-w-6xl mx-auto px-6 py-16 md:py-24">
-                <p class="text-brand-orange text-xs font-semibold uppercase tracking-widest mb-4">Portfolio</p>
-                <h2 class="text-4xl md:text-5xl font-medium tracking-tight mb-4">Our Projects</h2>
-                <p class="text-lg text-stone-500 font-light max-w-2xl mb-12">-------</p>
-                <div class="space-y-16">
-                    <div class="bg-white rounded-2xl overflow-hidden shadow-sm"><div class="grid md:grid-cols-2"><div class="aspect-[4/3] md:aspect-auto overflow-hidden"><div class="missing-photo" style="min-height:300px"><svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="18" x="3" y="3" rx="2" ry="2"/><circle cx="9" cy="9" r="2"/><path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21"/></svg><span>No Photo</span></div></div><div class="p-8 md:p-10 flex flex-col justify-center"><p class="text-xs font-semibold uppercase tracking-widest text-brand-orange mb-2">-------</p><h3 class="text-2xl font-semibold mb-3">-------</h3><p class="text-stone-500 text-sm leading-relaxed mb-6">-------</p><div class="grid grid-cols-2 gap-4"><div><p class="text-xs text-stone-400 uppercase tracking-wider">Duration</p><p class="text-sm font-medium">-------</p></div><div><p class="text-xs text-stone-400 uppercase tracking-wider">Size</p><p class="text-sm font-medium">-------</p></div><div><p class="text-xs text-stone-400 uppercase tracking-wider">Location</p><p class="text-sm font-medium">-------</p></div><div><p class="text-xs text-stone-400 uppercase tracking-wider">Year</p><p class="text-sm font-medium">-------</p></div></div></div></div></div>
-                    <div class="bg-white rounded-2xl overflow-hidden shadow-sm"><div class="grid md:grid-cols-2"><div class="p-8 md:p-10 flex flex-col justify-center order-2 md:order-1"><p class="text-xs font-semibold uppercase tracking-widest text-brand-orange mb-2">-------</p><h3 class="text-2xl font-semibold mb-3">-------</h3><p class="text-stone-500 text-sm leading-relaxed mb-6">-------</p><div class="grid grid-cols-2 gap-4"><div><p class="text-xs text-stone-400 uppercase tracking-wider">Duration</p><p class="text-sm font-medium">-------</p></div><div><p class="text-xs text-stone-400 uppercase tracking-wider">Size</p><p class="text-sm font-medium">-------</p></div><div><p class="text-xs text-stone-400 uppercase tracking-wider">Location</p><p class="text-sm font-medium">-------</p></div><div><p class="text-xs text-stone-400 uppercase tracking-wider">Year</p><p class="text-sm font-medium">-------</p></div></div></div><div class="aspect-[4/3] md:aspect-auto overflow-hidden order-1 md:order-2"><div class="missing-photo" style="min-height:300px"><svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="18" x="3" y="3" rx="2" ry="2"/><circle cx="9" cy="9" r="2"/><path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21"/></svg><span>No Photo</span></div></div></div></div>
-                    <div class="bg-white rounded-2xl overflow-hidden shadow-sm"><div class="grid md:grid-cols-2"><div class="aspect-[4/3] md:aspect-auto overflow-hidden"><div class="missing-photo" style="min-height:300px"><svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="18" x="3" y="3" rx="2" ry="2"/><circle cx="9" cy="9" r="2"/><path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21"/></svg><span>No Photo</span></div></div><div class="p-8 md:p-10 flex flex-col justify-center"><p class="text-xs font-semibold uppercase tracking-widest text-brand-orange mb-2">-------</p><h3 class="text-2xl font-semibold mb-3">-------</h3><p class="text-stone-500 text-sm leading-relaxed mb-6">-------</p><div class="grid grid-cols-2 gap-4"><div><p class="text-xs text-stone-400 uppercase tracking-wider">Duration</p><p class="text-sm font-medium">-------</p></div><div><p class="text-xs text-stone-400 uppercase tracking-wider">Size</p><p class="text-sm font-medium">-------</p></div><div><p class="text-xs text-stone-400 uppercase tracking-wider">Location</p><p class="text-sm font-medium">-------</p></div><div><p class="text-xs text-stone-400 uppercase tracking-wider">Year</p><p class="text-sm font-medium">-------</p></div></div></div></div></div>
-                </div>
-            </div>
-        </div>
-
-        <!-- ========== TESTIMONIALS ========== -->
-        <div id="section-testimonials" class="section-page">
-            <div class="max-w-4xl mx-auto px-6 py-16 md:py-24">
-                <p class="text-brand-orange text-xs font-semibold uppercase tracking-widest mb-4">Testimonials</p>
-                <h2 class="text-4xl md:text-5xl font-medium tracking-tight mb-12">What Clients Say</h2>
-                <div class="space-y-6">
-                    <div class="bg-white rounded-2xl p-8 border border-stone-200"><div class="flex gap-1 mb-4"><i data-lucide="star" class="w-4 h-4 fill-brand-orange text-brand-orange"></i><i data-lucide="star" class="w-4 h-4 fill-brand-orange text-brand-orange"></i><i data-lucide="star" class="w-4 h-4 fill-brand-orange text-brand-orange"></i><i data-lucide="star" class="w-4 h-4 fill-brand-orange text-brand-orange"></i><i data-lucide="star" class="w-4 h-4 fill-brand-orange text-brand-orange"></i></div><p class="text-stone-600 leading-relaxed mb-6">-------</p><div class="flex items-center gap-3"><div class="w-10 h-10 rounded-full bg-brand-blue/10 flex items-center justify-center"><span class="text-sm font-semibold text-brand-blue">--</span></div><div><p class="text-sm font-semibold">-------</p><p class="text-xs text-stone-400">-------</p></div></div></div>
-                    <div class="bg-white rounded-2xl p-8 border border-stone-200"><div class="flex gap-1 mb-4"><i data-lucide="star" class="w-4 h-4 fill-brand-orange text-brand-orange"></i><i data-lucide="star" class="w-4 h-4 fill-brand-orange text-brand-orange"></i><i data-lucide="star" class="w-4 h-4 fill-brand-orange text-brand-orange"></i><i data-lucide="star" class="w-4 h-4 fill-brand-orange text-brand-orange"></i><i data-lucide="star" class="w-4 h-4 fill-brand-orange text-brand-orange"></i></div><p class="text-stone-600 leading-relaxed mb-6">-------</p><div class="flex items-center gap-3"><div class="w-10 h-10 rounded-full bg-brand-blue/10 flex items-center justify-center"><span class="text-sm font-semibold text-brand-blue">--</span></div><div><p class="text-sm font-semibold">-------</p><p class="text-xs text-stone-400">-------</p></div></div></div>
-                    <div class="bg-white rounded-2xl p-8 border border-stone-200"><div class="flex gap-1 mb-4"><i data-lucide="star" class="w-4 h-4 fill-brand-orange text-brand-orange"></i><i data-lucide="star" class="w-4 h-4 fill-brand-orange text-brand-orange"></i><i data-lucide="star" class="w-4 h-4 fill-brand-orange text-brand-orange"></i><i data-lucide="star" class="w-4 h-4 fill-brand-orange text-brand-orange"></i><i data-lucide="star" class="w-4 h-4 fill-brand-orange text-brand-orange"></i></div><p class="text-stone-600 leading-relaxed mb-6">-------</p><div class="flex items-center gap-3"><div class="w-10 h-10 rounded-full bg-brand-blue/10 flex items-center justify-center"><span class="text-sm font-semibold text-brand-blue">--</span></div><div><p class="text-sm font-semibold">-------</p><p class="text-xs text-stone-400">-------</p></div></div></div>
-                </div>
-            </div>
-        </div>
-
         <!-- ========== CONTACT ========== -->
         <div id="section-contact" class="section-page">
             <div class="max-w-4xl mx-auto px-6 py-16 md:py-24">
@@ -688,7 +670,85 @@
     <script>
         lucide.createIcons();
 
-        // ========== PHOTO LIGHTBOX ==========
+        // ========== ALL PHOTO URLS (from Photos tab) ==========
+        const allPhotoUrls = [
+            'https://i.ibb.co/5XbbqhTJ/8556ee30-3fd2-44b1-a994-c61f5f39937a.jpg',
+            'https://i.ibb.co/ymLVBQ5R/8291006f-08e9-4cda-8a58-372a6d3f379a.jpg',
+            'https://i.ibb.co/LXGwJyZy/ca7e76d3-1657-4ab9-8301-fcd11c826b4a.jpg',
+            'https://i.ibb.co/DHJZDDMG/3c7da2fd-49da-4a62-b4ce-cb0dcd5a4313.jpg',
+            'https://i.ibb.co/93TS74f2/5ae6547c-32c7-4c34-a9df-461997436e3a.jpg',
+            'https://i.ibb.co/zVvrSNB4/0344b02f-c99e-41b6-8e9c-633d42be2960.jpg',
+            'https://i.ibb.co/8DhdkXbq/39043915-0e13-4b84-a419-2cf03a3e8b6e.jpg',
+            'https://i.ibb.co/mCh8KvHw/0a143052-b753-4f59-8dd9-22aee83914ec.jpg',
+            'https://i.ibb.co/BKLtskC8/4ad27bfa-dc4d-4ccc-b8c6-a33894713ee4.jpg',
+            'https://i.ibb.co/v6jcFs5g/5a8d190f-4508-468e-ad2c-451df9dd8eef.jpg',
+            'https://i.ibb.co/zkXDc57/6af345c7-2ec8-4c04-9aed-ac2cd035a108.jpg',
+            'https://i.ibb.co/7JFfctdV/9b61150f-0409-49d5-ac9c-581fdfbcbb11.jpg',
+            'https://i.ibb.co/pr5Vv9RH/31a528a0-4c32-48f4-af0a-6d5e1233d221.jpg',
+            'https://i.ibb.co/PvwyM6D4/40b4c2e1-4d6c-4256-9cb6-b67499388ce2.jpg',
+            'https://i.ibb.co/tTLdMrgj/88e1424a-1a5f-405e-a7cd-48cdc142aa43.jpg',
+            'https://i.ibb.co/5xJyCgp8/759fe2c2-4d2d-486b-9a76-717a94183d8a.jpg',
+            'https://i.ibb.co/20M75kxB/5328b8b5-e831-43cc-ad16-fcd4a328a461.jpg',
+            'https://i.ibb.co/zT31SQsz/050102da-cd06-463a-b870-871c9ee43f6b.jpg',
+            'https://i.ibb.co/Gvy1KW4f/9881011c-f7c6-4442-a706-9d3efa4b62a0.jpg',
+            'https://i.ibb.co/rKJHStQY/a4a075df-5232-4302-bf40-87a7cd3305d2.jpg',
+            'https://i.ibb.co/yBGVSjSt/ac23485e-14c1-40a3-9c32-400614ee3d63.jpg',
+            'https://i.ibb.co/Txs0s8tj/b9f230e0-2829-4f39-b5c9-098e86eb7d25.jpg',
+            'https://i.ibb.co/4ZDgGLxR/b9f08804-c25f-4fe3-b5cc-176c974da39a.jpg',
+            'https://i.ibb.co/N2wP4Qdn/b2737cbf-fb46-4f2a-93c7-b3f4b739c275.jpg',
+            'https://i.ibb.co/pjdS4yz8/bea51ed5-7b4f-4365-acf0-a7d9f69fbf6a.jpg',
+            'https://i.ibb.co/XZ4Ldv0J/c554ab62-2b8b-415f-ba2e-dcbf5b90e7fd.jpg',
+            'https://i.ibb.co/vvZgfPkv/d54a5df2-c8ef-48e5-b169-39d22abe92c1.jpg',
+            'https://i.ibb.co/Pv0Zr2s5/f534f4ce-526f-42e7-bdd2-341927cc93e9.jpg',
+            'https://i.ibb.co/Xx0FS92K/fac738cd-aacb-4a2a-9569-b586c413812c.jpg',
+            'https://i.ibb.co/6Jf6X7BX/fe78df3a-ec11-4abe-b6d0-85fc0ce93bd1.jpg'
+        ];
+
+        // ========== HOME PHOTO ROTATION ==========
+        const HOME_SLOT_COUNT = 3;
+        let homeCurrentIndices = [0, 1, 2]; // which photo each slot is showing
+        const homeSlots = document.querySelectorAll('.home-photo-slot');
+
+        // Initialize: place first images into each slot
+        homeSlots.forEach((slot, i) => {
+            const img = document.createElement('img');
+            img.src = allPhotoUrls[homeCurrentIndices[i]];
+            img.alt = 'Project Photo';
+            img.classList.add('visible');
+            slot.insertBefore(img, slot.firstChild);
+        });
+
+        function rotateHomePhotos() {
+            homeSlots.forEach((slot, slotIndex) => {
+                homeCurrentIndices[slotIndex] = (homeCurrentIndices[slotIndex] + HOME_SLOT_COUNT) % allPhotoUrls.length;
+                const newSrc = allPhotoUrls[homeCurrentIndices[slotIndex]];
+
+                // Create new img, fade it in over the current one
+                const newImg = document.createElement('img');
+                newImg.src = newSrc;
+                newImg.alt = 'Project Photo';
+                slot.insertBefore(newImg, slot.firstChild);
+
+                // Trigger reflow then fade in
+                requestAnimationFrame(() => {
+                    requestAnimationFrame(() => {
+                        newImg.classList.add('visible');
+                    });
+                });
+
+                // After transition, remove old img
+                setTimeout(() => {
+                    const allImgs = slot.querySelectorAll('img');
+                    if (allImgs.length > 1) {
+                        allImgs[allImgs.length - 1].remove();
+                    }
+                }, 1300);
+            });
+        }
+
+        let homeRotateInterval = setInterval(rotateHomePhotos, 4000);
+
+        // ========== PHOTOS PAGE LIGHTBOX ==========
         const galleryImages = [];
         document.querySelectorAll('#photoGrid .gallery-item img').forEach(img => {
             galleryImages.push(img.src);
@@ -783,10 +843,17 @@
             window.scrollTo({ top: 0, behavior: 'smooth' });
             closeMobileMenu();
 
-            if (sectionId === 'home' && window.innerWidth < 768) {
-                stopMobileCarousel();
-                startMobileCarousel();
+            // Pause home photo rotation when not on home, resume when back
+            if (sectionId === 'home') {
+                homeRotateInterval = setInterval(rotateHomePhotos, 4000);
+                if (window.innerWidth < 768) {
+                    stopMobileCarousel();
+                    startMobileCarousel();
+                } else {
+                    stopMobileCarousel();
+                }
             } else {
+                clearInterval(homeRotateInterval);
                 stopMobileCarousel();
             }
         }
