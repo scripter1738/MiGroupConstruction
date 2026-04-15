@@ -163,6 +163,67 @@
             outline: none;
             display: block;
         }
+
+        /* Lightbox */
+        .lightbox-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.9);
+            z-index: 100;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            cursor: zoom-out;
+        }
+        .lightbox-overlay.open {
+            display: flex;
+        }
+        .lightbox-overlay img {
+            max-width: 90vw;
+            max-height: 90vh;
+            object-fit: contain;
+            border-radius: 0.5rem;
+        }
+        .lightbox-close {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: rgba(255,255,255,0.15);
+            border: none;
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        .lightbox-close:hover {
+            background: rgba(255,255,255,0.3);
+        }
+        .lightbox-nav {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(255,255,255,0.15);
+            border: none;
+            color: white;
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        .lightbox-nav:hover {
+            background: rgba(255,255,255,0.3);
+        }
+        .lightbox-prev { left: 1rem; }
+        .lightbox-next { right: 1rem; }
     </style>
 </head>
 <body class="font-sans bg-[#F2F2F2] text-stone-900">
@@ -172,6 +233,20 @@
     </button>
 
     <div id="mobileOverlay" class="mobile-overlay"></div>
+
+    <!-- Lightbox -->
+    <div id="lightbox" class="lightbox-overlay" onclick="closeLightbox(event)">
+        <button class="lightbox-close" onclick="closeLightbox(event)">
+            <i data-lucide="x" class="w-5 h-5"></i>
+        </button>
+        <button class="lightbox-nav lightbox-prev" onclick="navigateLightbox(event, -1)">
+            <i data-lucide="chevron-left" class="w-6 h-6"></i>
+        </button>
+        <img id="lightboxImg" src="" alt="Photo">
+        <button class="lightbox-nav lightbox-next" onclick="navigateLightbox(event, 1)">
+            <i data-lucide="chevron-right" class="w-6 h-6"></i>
+        </button>
+    </div>
 
     <!-- Left Sidebar -->
     <aside id="sidebar" class="sidebar fixed top-0 left-0 h-full w-64 bg-brand-blue text-white flex flex-col md:translate-x-0">
@@ -394,39 +469,156 @@
                 <p class="text-brand-orange text-xs font-semibold uppercase tracking-widest mb-4">Gallery</p>
                 <h2 class="text-4xl md:text-5xl font-medium tracking-tight mb-10">Project Photos</h2>
                 <div id="photoGrid" class="grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-6">
-                    <div class="gallery-item rounded-xl overflow-hidden">
+                    <!-- Original photos -->
+                    <div class="gallery-item rounded-xl overflow-hidden cursor-pointer" onclick="openLightbox(0)">
                         <div class="aspect-square overflow-hidden">
                             <img src="https://i.ibb.co/5XbbqhTJ/8556ee30-3fd2-44b1-a994-c61f5f39937a.jpg" alt="Project Photo" class="w-full h-full object-cover transition-transform duration-500">
                         </div>
                     </div>
-                    <div class="gallery-item rounded-xl overflow-hidden">
+                    <div class="gallery-item rounded-xl overflow-hidden cursor-pointer" onclick="openLightbox(1)">
                         <div class="aspect-square overflow-hidden">
                             <img src="https://i.ibb.co/ymLVBQ5R/8291006f-08e9-4cda-8a58-372a6d3f379a.jpg" alt="Project Photo" class="w-full h-full object-cover transition-transform duration-500">
                         </div>
                     </div>
-                    <div class="gallery-item rounded-xl overflow-hidden">
+                    <div class="gallery-item rounded-xl overflow-hidden cursor-pointer" onclick="openLightbox(2)">
                         <div class="aspect-square overflow-hidden">
                             <img src="https://i.ibb.co/LXGwJyZy/ca7e76d3-1657-4ab9-8301-fcd11c826b4a.jpg" alt="Project Photo" class="w-full h-full object-cover transition-transform duration-500">
                         </div>
                     </div>
-                    <div class="gallery-item rounded-xl overflow-hidden">
+                    <div class="gallery-item rounded-xl overflow-hidden cursor-pointer" onclick="openLightbox(3)">
                         <div class="aspect-square overflow-hidden">
                             <img src="https://i.ibb.co/DHJZDDMG/3c7da2fd-49da-4a62-b4ce-cb0dcd5a4313.jpg" alt="Project Photo" class="w-full h-full object-cover transition-transform duration-500">
                         </div>
                     </div>
-                    <div class="gallery-item rounded-xl overflow-hidden">
+                    <div class="gallery-item rounded-xl overflow-hidden cursor-pointer" onclick="openLightbox(4)">
                         <div class="aspect-square overflow-hidden">
                             <img src="https://i.ibb.co/93TS74f2/5ae6547c-32c7-4c34-a9df-461997436e3a.jpg" alt="Project Photo" class="w-full h-full object-cover transition-transform duration-500">
                         </div>
                     </div>
-                    <div class="gallery-item rounded-xl overflow-hidden">
+                    <div class="gallery-item rounded-xl overflow-hidden cursor-pointer" onclick="openLightbox(5)">
                         <div class="aspect-square overflow-hidden">
                             <img src="https://i.ibb.co/zVvrSNB4/0344b02f-c99e-41b6-8e9c-633d42be2960.jpg" alt="Project Photo" class="w-full h-full object-cover transition-transform duration-500">
                         </div>
                     </div>
-                    <div class="gallery-item rounded-xl overflow-hidden">
+                    <div class="gallery-item rounded-xl overflow-hidden cursor-pointer" onclick="openLightbox(6)">
                         <div class="aspect-square overflow-hidden">
                             <img src="https://i.ibb.co/8DhdkXbq/39043915-0e13-4b84-a419-2cf03a3e8b6e.jpg" alt="Project Photo" class="w-full h-full object-cover transition-transform duration-500">
+                        </div>
+                    </div>
+                    <!-- New photos -->
+                    <div class="gallery-item rounded-xl overflow-hidden cursor-pointer" onclick="openLightbox(7)">
+                        <div class="aspect-square overflow-hidden">
+                            <img src="https://i.ibb.co/mCh8KvHw/0a143052-b753-4f59-8dd9-22aee83914ec.jpg" alt="Project Photo" class="w-full h-full object-cover transition-transform duration-500">
+                        </div>
+                    </div>
+                    <div class="gallery-item rounded-xl overflow-hidden cursor-pointer" onclick="openLightbox(8)">
+                        <div class="aspect-square overflow-hidden">
+                            <img src="https://i.ibb.co/BKLtskC8/4ad27bfa-dc4d-4ccc-b8c6-a33894713ee4.jpg" alt="Project Photo" class="w-full h-full object-cover transition-transform duration-500">
+                        </div>
+                    </div>
+                    <div class="gallery-item rounded-xl overflow-hidden cursor-pointer" onclick="openLightbox(9)">
+                        <div class="aspect-square overflow-hidden">
+                            <img src="https://i.ibb.co/v6jcFs5g/5a8d190f-4508-468e-ad2c-451df9dd8eef.jpg" alt="Project Photo" class="w-full h-full object-cover transition-transform duration-500">
+                        </div>
+                    </div>
+                    <div class="gallery-item rounded-xl overflow-hidden cursor-pointer" onclick="openLightbox(10)">
+                        <div class="aspect-square overflow-hidden">
+                            <img src="https://i.ibb.co/zkXDc57/6af345c7-2ec8-4c04-9aed-ac2cd035a108.jpg" alt="Project Photo" class="w-full h-full object-cover transition-transform duration-500">
+                        </div>
+                    </div>
+                    <div class="gallery-item rounded-xl overflow-hidden cursor-pointer" onclick="openLightbox(11)">
+                        <div class="aspect-square overflow-hidden">
+                            <img src="https://i.ibb.co/7JFfctdV/9b61150f-0409-49d5-ac9c-581fdfbcbb11.jpg" alt="Project Photo" class="w-full h-full object-cover transition-transform duration-500">
+                        </div>
+                    </div>
+                    <div class="gallery-item rounded-xl overflow-hidden cursor-pointer" onclick="openLightbox(12)">
+                        <div class="aspect-square overflow-hidden">
+                            <img src="https://i.ibb.co/pr5Vv9RH/31a528a0-4c32-48f4-af0a-6d5e1233d221.jpg" alt="Project Photo" class="w-full h-full object-cover transition-transform duration-500">
+                        </div>
+                    </div>
+                    <div class="gallery-item rounded-xl overflow-hidden cursor-pointer" onclick="openLightbox(13)">
+                        <div class="aspect-square overflow-hidden">
+                            <img src="https://i.ibb.co/PvwyM6D4/40b4c2e1-4d6c-4256-9cb6-b67499388ce2.jpg" alt="Project Photo" class="w-full h-full object-cover transition-transform duration-500">
+                        </div>
+                    </div>
+                    <div class="gallery-item rounded-xl overflow-hidden cursor-pointer" onclick="openLightbox(14)">
+                        <div class="aspect-square overflow-hidden">
+                            <img src="https://i.ibb.co/tTLdMrgj/88e1424a-1a5f-405e-a7cd-48cdc142aa43.jpg" alt="Project Photo" class="w-full h-full object-cover transition-transform duration-500">
+                        </div>
+                    </div>
+                    <div class="gallery-item rounded-xl overflow-hidden cursor-pointer" onclick="openLightbox(15)">
+                        <div class="aspect-square overflow-hidden">
+                            <img src="https://i.ibb.co/5xJyCgp8/759fe2c2-4d2d-486b-9a76-717a94183d8a.jpg" alt="Project Photo" class="w-full h-full object-cover transition-transform duration-500">
+                        </div>
+                    </div>
+                    <div class="gallery-item rounded-xl overflow-hidden cursor-pointer" onclick="openLightbox(16)">
+                        <div class="aspect-square overflow-hidden">
+                            <img src="https://i.ibb.co/20M75kxB/5328b8b5-e831-43cc-ad16-fcd4a328a461.jpg" alt="Project Photo" class="w-full h-full object-cover transition-transform duration-500">
+                        </div>
+                    </div>
+                    <div class="gallery-item rounded-xl overflow-hidden cursor-pointer" onclick="openLightbox(17)">
+                        <div class="aspect-square overflow-hidden">
+                            <img src="https://i.ibb.co/zT31SQsz/050102da-cd06-463a-b870-871c9ee43f6b.jpg" alt="Project Photo" class="w-full h-full object-cover transition-transform duration-500">
+                        </div>
+                    </div>
+                    <div class="gallery-item rounded-xl overflow-hidden cursor-pointer" onclick="openLightbox(18)">
+                        <div class="aspect-square overflow-hidden">
+                            <img src="https://i.ibb.co/Gvy1KW4f/9881011c-f7c6-4442-a706-9d3efa4b62a0.jpg" alt="Project Photo" class="w-full h-full object-cover transition-transform duration-500">
+                        </div>
+                    </div>
+                    <div class="gallery-item rounded-xl overflow-hidden cursor-pointer" onclick="openLightbox(19)">
+                        <div class="aspect-square overflow-hidden">
+                            <img src="https://i.ibb.co/rKJHStQY/a4a075df-5232-4302-bf40-87a7cd3305d2.jpg" alt="Project Photo" class="w-full h-full object-cover transition-transform duration-500">
+                        </div>
+                    </div>
+                    <div class="gallery-item rounded-xl overflow-hidden cursor-pointer" onclick="openLightbox(20)">
+                        <div class="aspect-square overflow-hidden">
+                            <img src="https://i.ibb.co/yBGVSjSt/ac23485e-14c1-40a3-9c32-400614ee3d63.jpg" alt="Project Photo" class="w-full h-full object-cover transition-transform duration-500">
+                        </div>
+                    </div>
+                    <div class="gallery-item rounded-xl overflow-hidden cursor-pointer" onclick="openLightbox(21)">
+                        <div class="aspect-square overflow-hidden">
+                            <img src="https://i.ibb.co/Txs0s8tj/b9f230e0-2829-4f39-b5c9-098e86eb7d25.jpg" alt="Project Photo" class="w-full h-full object-cover transition-transform duration-500">
+                        </div>
+                    </div>
+                    <div class="gallery-item rounded-xl overflow-hidden cursor-pointer" onclick="openLightbox(22)">
+                        <div class="aspect-square overflow-hidden">
+                            <img src="https://i.ibb.co/4ZDgGLxR/b9f08804-c25f-4fe3-b5cc-176c974da39a.jpg" alt="Project Photo" class="w-full h-full object-cover transition-transform duration-500">
+                        </div>
+                    </div>
+                    <div class="gallery-item rounded-xl overflow-hidden cursor-pointer" onclick="openLightbox(23)">
+                        <div class="aspect-square overflow-hidden">
+                            <img src="https://i.ibb.co/N2wP4Qdn/b2737cbf-fb46-4f2a-93c7-b3f4b739c275.jpg" alt="Project Photo" class="w-full h-full object-cover transition-transform duration-500">
+                        </div>
+                    </div>
+                    <div class="gallery-item rounded-xl overflow-hidden cursor-pointer" onclick="openLightbox(24)">
+                        <div class="aspect-square overflow-hidden">
+                            <img src="https://i.ibb.co/pjdS4yz8/bea51ed5-7b4f-4365-acf0-a7d9f69fbf6a.jpg" alt="Project Photo" class="w-full h-full object-cover transition-transform duration-500">
+                        </div>
+                    </div>
+                    <div class="gallery-item rounded-xl overflow-hidden cursor-pointer" onclick="openLightbox(25)">
+                        <div class="aspect-square overflow-hidden">
+                            <img src="https://i.ibb.co/XZ4Ldv0J/c554ab62-2b8b-415f-ba2e-dcbf5b90e7fd.jpg" alt="Project Photo" class="w-full h-full object-cover transition-transform duration-500">
+                        </div>
+                    </div>
+                    <div class="gallery-item rounded-xl overflow-hidden cursor-pointer" onclick="openLightbox(26)">
+                        <div class="aspect-square overflow-hidden">
+                            <img src="https://i.ibb.co/vvZgfPkv/d54a5df2-c8ef-48e5-b169-39d22abe92c1.jpg" alt="Project Photo" class="w-full h-full object-cover transition-transform duration-500">
+                        </div>
+                    </div>
+                    <div class="gallery-item rounded-xl overflow-hidden cursor-pointer" onclick="openLightbox(27)">
+                        <div class="aspect-square overflow-hidden">
+                            <img src="https://i.ibb.co/Pv0Zr2s5/f534f4ce-526f-42e7-bdd2-341927cc93e9.jpg" alt="Project Photo" class="w-full h-full object-cover transition-transform duration-500">
+                        </div>
+                    </div>
+                    <div class="gallery-item rounded-xl overflow-hidden cursor-pointer" onclick="openLightbox(28)">
+                        <div class="aspect-square overflow-hidden">
+                            <img src="https://i.ibb.co/Xx0FS92K/fac738cd-aacb-4a2a-9569-b586c413812c.jpg" alt="Project Photo" class="w-full h-full object-cover transition-transform duration-500">
+                        </div>
+                    </div>
+                    <div class="gallery-item rounded-xl overflow-hidden cursor-pointer" onclick="openLightbox(29)">
+                        <div class="aspect-square overflow-hidden">
+                            <img src="https://i.ibb.co/6Jf6X7BX/fe78df3a-ec11-4abe-b6d0-85fc0ce93bd1.jpg" alt="Project Photo" class="w-full h-full object-cover transition-transform duration-500">
                         </div>
                     </div>
                 </div>
@@ -519,6 +711,47 @@
 
     <script>
         lucide.createIcons();
+
+        // ========== PHOTO LIGHTBOX ==========
+        const galleryImages = [];
+        document.querySelectorAll('#photoGrid .gallery-item img').forEach(img => {
+            galleryImages.push(img.src);
+        });
+
+        let currentLightboxIndex = 0;
+
+        function openLightbox(index) {
+            currentLightboxIndex = index;
+            const lightbox = document.getElementById('lightbox');
+            const lightboxImg = document.getElementById('lightboxImg');
+            lightboxImg.src = galleryImages[index];
+            lightbox.classList.add('open');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeLightbox(event) {
+            if (event.target === document.getElementById('lightbox') || event.currentTarget.classList.contains('lightbox-close')) {
+                document.getElementById('lightbox').classList.remove('open');
+                document.body.style.overflow = '';
+            }
+        }
+
+        function navigateLightbox(event, direction) {
+            event.stopPropagation();
+            currentLightboxIndex = (currentLightboxIndex + direction + galleryImages.length) % galleryImages.length;
+            document.getElementById('lightboxImg').src = galleryImages[currentLightboxIndex];
+        }
+
+        document.addEventListener('keydown', (e) => {
+            const lightbox = document.getElementById('lightbox');
+            if (!lightbox.classList.contains('open')) return;
+            if (e.key === 'Escape') {
+                lightbox.classList.remove('open');
+                document.body.style.overflow = '';
+            }
+            if (e.key === 'ArrowLeft') navigateLightbox(e, -1);
+            if (e.key === 'ArrowRight') navigateLightbox(e, 1);
+        });
 
         // ========== MOBILE CAROUSEL (only runs on mobile) ==========
         let mobileSlide = 0;
