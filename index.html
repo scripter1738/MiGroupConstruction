@@ -3,7 +3,27 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MiGroupConstruction</title>
+    <title>MiGroup Construction | Drylining Specialists Greater London</title>
+    <meta name="description" content="MI Group Construction is a leading drylining company working on large developments across Greater London.">
+
+    <link rel="icon" type="image/png" href="https://www.migroupconstruction.co.uk/migrouplogo.png">
+    <meta property="og:title" content="MiGroup Construction | Drylining Specialists">
+    <meta property="og:description" content="Leading drylining company working on large developments across Greater London.">
+    <meta property="og:image" content="https://www.migroupconstruction.co.uk/migrouplogo.png">
+    <meta property="og:url" content="https://www.migroupconstruction.co.uk/">
+
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Organization",
+        "name": "MiGroup Construction",
+        "url": "https://www.migroupconstruction.co.uk/",
+        "logo": "https://www.migroupconstruction.co.uk/migrouplogo.png",
+        "telephone": "07584709091",
+        "email": "marius@migroupconstruction.co.uk"
+    }
+    </script>
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -162,7 +182,6 @@
             display: block;
         }
 
-        /* Lightbox */
         .lightbox-overlay {
             position: fixed;
             inset: 0;
@@ -223,7 +242,6 @@
         .lightbox-prev { left: 1rem; }
         .lightbox-next { right: 1rem; }
 
-        /* Home photo fade swap */
         .home-photo-slot {
             position: relative;
             border-radius: 1rem;
@@ -268,7 +286,6 @@
 
     <div id="mobileOverlay" class="mobile-overlay"></div>
 
-    <!-- Lightbox -->
     <div id="lightbox" class="lightbox-overlay" onclick="closeLightbox(event)">
         <button class="lightbox-close" onclick="closeLightbox(event)">
             <i data-lucide="x" class="w-5 h-5"></i>
@@ -282,7 +299,6 @@
         </button>
     </div>
 
-    <!-- Left Sidebar -->
     <aside id="sidebar" class="sidebar fixed top-0 left-0 h-full w-64 bg-brand-blue text-white flex flex-col md:translate-x-0">
         <div class="p-5 bg-white border-b border-white/10 flex items-center justify-center">
             <img src="migrouplogo.png" alt="MiGroupConstruction" class="logo-img">
@@ -331,10 +347,8 @@
         </div>
     </aside>
 
-    <!-- Main Content -->
     <main class="md:ml-64 min-h-screen">
 
-        <!-- ========== HOME ========== -->
         <div id="section-home" class="section-page active">
             <div class="relative h-[85vh] min-h-[600px] overflow-hidden">
 
@@ -418,7 +432,6 @@
             </div>
         </div>
 
-        <!-- ========== ABOUT ========== -->
         <div id="section-about" class="section-page">
             <div class="max-w-4xl mx-auto px-6 py-16 md:py-24">
                 <p class="text-brand-orange text-xs font-semibold uppercase tracking-widest mb-4">About Us</p>
@@ -479,7 +492,6 @@
             </div>
         </div>
 
-        <!-- ========== SERVICES ========== -->
         <div id="section-services" class="section-page">
             <div class="max-w-6xl mx-auto px-6 py-16 md:py-24">
                 <p class="text-brand-orange text-xs font-semibold uppercase tracking-widest mb-4">What We Do</p>
@@ -502,26 +514,22 @@
             </div>
         </div>
 
-        <!-- ========== PHOTOS ========== -->
         <div id="section-photos" class="section-page">
             <div class="max-w-6xl mx-auto px-6 py-16 md:py-24">
                 <p class="text-brand-orange text-xs font-semibold uppercase tracking-widest mb-4">Gallery</p>
                 <h2 class="text-4xl md:text-5xl font-medium tracking-tight mb-10">Project Photos</h2>
                 
                 <div id="photoGrid" class="space-y-12">
-                    <!-- Rendered by JS -->
                 </div>
             </div>
         </div>
 
-        <!-- ========== VIDEOS ========== -->
         <div id="section-videos" class="section-page">
             <div class="max-w-6xl mx-auto px-6 py-16 md:py-24">
                 <p class="text-brand-orange text-xs font-semibold uppercase tracking-widest mb-4">Video Gallery</p>
                 <h2 class="text-4xl md:text-5xl font-medium tracking-tight mb-4">Videos</h2>
                 <p class="text-lg text-stone-500 font-light max-w-2xl mb-12">Check out our latest construction projects in action.</p>
                 
-                <!-- Construction Videos -->
                 <div class="mb-16">
                     <div class="flex items-center gap-4 mb-6">
                         <h3 class="text-2xl md:text-3xl font-medium tracking-tight whitespace-nowrap">Construction</h3>
@@ -544,7 +552,6 @@
                     </div>
                 </div>
 
-                <!-- Acrylic Painting Videos -->
                 <div>
                     <div class="flex items-center gap-4 mb-6">
                         <h3 class="text-2xl md:text-3xl font-medium tracking-tight whitespace-nowrap">Acrylic Painting</h3>
@@ -570,7 +577,6 @@
             </div>
         </div>
 
-        <!-- ========== CONTACT ========== -->
         <div id="section-contact" class="section-page">
             <div class="max-w-4xl mx-auto px-6 py-16 md:py-24">
                 <p class="text-brand-orange text-xs font-semibold uppercase tracking-widest mb-4">Get in Touch</p>
@@ -615,7 +621,6 @@
     <script>
         lucide.createIcons();
 
-        // ========== PHOTO DATA ==========
         const constructionPhotos = [
             'https://i.ibb.co/5XbbqhTJ/8556ee30-3fd2-44b1-a994-c61f5f39937a.jpg',
             'https://i.ibb.co/ymLVBQ5R/8291006f-08e9-4cda-8a58-372a6d3f379a.jpg',
@@ -691,7 +696,6 @@
 
         const allPhotoUrls = [...constructionPhotos, ...acrylicPhotos];
 
-        // ========== PHOTO GRID RENDERING ==========
         let galleryImages = [];
 
         function renderPhotoGrid() {
@@ -733,10 +737,8 @@
             grid.innerHTML = html;
         }
 
-        // Initial render
         renderPhotoGrid();
 
-        // ========== HOME PHOTO ROTATION ==========
         const HOME_SLOT_COUNT = 3;
         let homeCurrentIndices = [0, 1, 2];
         const homeSlots = document.querySelectorAll('.home-photo-slot');
@@ -776,7 +778,6 @@
 
         let homeRotateInterval = setInterval(rotateHomePhotos, 4000);
 
-        // ========== PHOTOS PAGE LIGHTBOX ==========
         let currentLightboxIndex = 0;
 
         function openLightbox(index) {
@@ -812,7 +813,6 @@
             if (e.key === 'ArrowRight') navigateLightbox(e, 1);
         });
 
-        // ========== MOBILE CAROUSEL ==========
         let mobileSlide = 0;
         const mobileSlides = document.querySelectorAll('.hero-mobile-image');
         const mobileIndicators = document.querySelectorAll('.carousel-indicator');
@@ -857,7 +857,6 @@
         handleCarouselVisibility();
         window.addEventListener('resize', handleCarouselVisibility);
 
-        // ========== SECTION NAVIGATION ==========
         function showSection(sectionId) {
             document.querySelectorAll('.section-page').forEach(s => s.classList.remove('active'));
             document.getElementById('section-' + sectionId).classList.add('active');
@@ -880,7 +879,6 @@
             }
         }
 
-        // ========== MOBILE MENU ==========
         const sidebar = document.getElementById('sidebar');
         const overlay = document.getElementById('mobileOverlay');
         const menuBtn = document.getElementById('mobileMenuBtn');
